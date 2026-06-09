@@ -3,7 +3,15 @@ package com.machadovitor.tax.rate;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public sealed interface TaxRate permits TaxRate.Percentage, TaxRate.Exempt {
+public sealed interface TaxRate permits TaxRate.Percentage, TaxRate.Exempt { // Sealed to exactly Percentage and Exempt
+// the closed set lets the tax-calculation switch be checked exhaustively at compile time.
+    // at compile time: javac knows the complete set, so it can:
+    // - prove a switch is exhaustive
+    // - reject any unauthorized implement
+    // - break the build if you add a variant and forget to handle it somewhere
+    // at runtime: the permitted list is baked into the .class file as a PermittedSubclasses attribute.
+    //The JVM re-checks it at class-load time: a class trying to implement a
+    // sealed type without being on the list fails to load (IncompatibleClassChangeError). So the seal holds even against bytecode that never went through your compiler.
 
     BigDecimal asFraction();
 
