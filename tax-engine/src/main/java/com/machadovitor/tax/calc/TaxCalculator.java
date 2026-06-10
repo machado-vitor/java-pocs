@@ -28,10 +28,7 @@ public final class TaxCalculator {
                 .orElseThrow(() -> new TaxRuleNotFoundException(state, product.category(), year));
 
         Money subtotal = product.unitPrice().times(BigDecimal.valueOf(quantity));
-        Money tax = switch (rate) {
-            case TaxRate.Exempt ignored -> Money.zero();
-            case TaxRate.Percentage percentage -> subtotal.times(percentage.asFraction());
-        };
+        Money tax = rate.taxOn(subtotal);
 
         return new TaxAssessment(product, quantity, state, year, rate, subtotal, tax);
     }

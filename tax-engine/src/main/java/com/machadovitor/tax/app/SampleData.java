@@ -30,6 +30,11 @@ final class SampleData {
                 .add(new TaxRule(CALIFORNIA, ELECTRONICS, 2024, TaxRate.percent("7.75")))
                 .add(new TaxRule(CALIFORNIA, GROCERIES, 2022, TaxRate.exempt()))
                 .add(new TaxRule(CALIFORNIA, LUXURY_GOODS, 2022, TaxRate.percent("10.00")))
+                .add(new TaxRule(CALIFORNIA, LUXURY_GOODS, 2025, TaxRate.progressive(
+                        TaxRate.bracket("0", "0"),
+                        TaxRate.bracket("20000", "10"),
+                        TaxRate.bracket("30000", "12"),
+                        TaxRate.bracket("50000", "15"))))
                 .add(new TaxRule(CALIFORNIA, PRESCRIPTION_DRUGS, 2022, TaxRate.exempt()));
 
         repository
