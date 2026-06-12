@@ -7,19 +7,16 @@ import com.machadovitor.tax.rate.TaxRate;
 import com.machadovitor.tax.rate.TaxRuleRepository;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public final class TaxCalculator {
 
     private final TaxRuleRepository repository;
 
     public TaxCalculator(TaxRuleRepository repository) {
-        this.repository = Objects.requireNonNull(repository, "repository must not be null");
+        this.repository = repository;
     }
 
     public TaxAssessment assess(Product product, int quantity, UsState state, int year) {
-        Objects.requireNonNull(product, "product must not be null");
-        Objects.requireNonNull(state, "state must not be null");
         if (quantity <= 0) {
             throw new IllegalArgumentException("quantity must be positive: " + quantity);
         }

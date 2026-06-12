@@ -4,7 +4,6 @@ import com.machadovitor.tax.model.Money;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
 public sealed interface TaxRate permits TaxRate.Percentage, TaxRate.Exempt, TaxRate.Progressive { // Sealed to exactly Percentage, Exempt and Progressive
 // the closed set means these are TaxRate's only implementations.
@@ -20,7 +19,6 @@ public sealed interface TaxRate permits TaxRate.Percentage, TaxRate.Exempt, TaxR
     record Percentage(BigDecimal percent) implements TaxRate {
 
         public Percentage {
-            Objects.requireNonNull(percent, "percent must not be null");
             if (percent.signum() < 0) {
                 throw new IllegalArgumentException("tax percent must not be negative: " + percent);
             }

@@ -2,7 +2,6 @@ package com.machadovitor.tax.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Objects;
 
 public record Money(BigDecimal amount) {
 
@@ -10,7 +9,6 @@ public record Money(BigDecimal amount) {
     private static final RoundingMode ROUNDING = RoundingMode.HALF_UP;
 
     public Money {
-        Objects.requireNonNull(amount, "amount must not be null");
         amount = amount.setScale(SCALE, ROUNDING);
     }
 
