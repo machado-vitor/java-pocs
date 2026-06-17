@@ -36,6 +36,10 @@ public record Money(BigDecimal amount) {
         return amount.signum() == 0;
     }
 
+    public boolean isAtLeast(Money other) {
+        return amount.compareTo(other.amount) >= 0;
+    }
+
     @Override
     public String toString() {
         return "$" + amount;
