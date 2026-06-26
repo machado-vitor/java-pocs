@@ -7,12 +7,15 @@ import com.machadovitor.logger.sink.LogSink;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
+import static com.machadovitor.logger.router.Router.*;
 
 // collects the routes, then builds the Logger
 public final class LoggerBuilder {
 
     private String name = "root";
-    private final List<Router.Route> routes = new ArrayList<>();
+    private final List<Route> routes = new ArrayList<>();
 
     public LoggerBuilder name(String name) {
         this.name = name;
@@ -24,7 +27,11 @@ public final class LoggerBuilder {
     }
 
     public LoggerBuilder route(LogSink sink, DeliveryMode mode, LogLevel minLevel) {
-        routes.add(new Router.Route(Dispatcher.of(mode, sink), minLevel));
+        return route(sink, mode, minLevel, event -> true);
+    }
+
+    public LoggerBuilder route(LogSink sink, DeliveryMode mode, LogLevel minLevel, Predicate<LogEvent> filter) {
+        routes.add(new Route(Dispatcher.of(mode, sink), minLevel, filter));
         return this;
     }
 

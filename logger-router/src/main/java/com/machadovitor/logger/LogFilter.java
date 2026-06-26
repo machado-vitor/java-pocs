@@ -15,5 +15,5 @@ public interface LogFilter {
     }
 
     // TODO: messageContains(text), fromLogger(name), and()/or() composition,
-    //       then accept a LogFilter in Router.Route instead of Predicate.
+    //       then accept a LogFilter in the router's Route instead of Predicate.
 }

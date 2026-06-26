@@ -5,6 +5,7 @@ import com.machadovitor.logger.LogLevel;
 import com.machadovitor.logger.delivery.Dispatcher;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 // Fans an event out to every route that accepts it.
 public final class Router {
@@ -29,10 +30,10 @@ public final class Router {
         }
     }
 
-    public record Route(Dispatcher dispatcher, LogLevel minLevel) {
+    public record Route(Dispatcher dispatcher, LogLevel minLevel, Predicate<LogEvent> filter) {
 
         public boolean accepts(LogEvent event) {
-            return event.level().isAtLeast(minLevel);
+            return event.level().isAtLeast(minLevel) && filter.test(event);
         }
     }
 }
